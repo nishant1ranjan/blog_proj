@@ -1,0 +1,63 @@
+// Place all the styles related to the post controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#tbg{
+    background-color:#D1FFF5  ;
+    
+    font-size: 21px;
+    
+    
+    
+}
+
+#comment{
+    font-size: 16px;
+    align:left;
+
+}
+h1{
+    color:#221349;  
+    font-family: Times, serif;    
+    background-color: #008559;
+ height:70px ;
+ width: 100%;
+ text-align: center;
+ 
+}
+a:link {
+    text-decoration: none;
+
+
+  }
+
+table.test td {
+    margin: 12px 12px 12px 12px;
+    padding: 8px 8px 8px 8px;
+}
+table.test {
+  
+    border-collapse: separate;
+    border-spacing: 5px;
+    *border-collapse: expression('separate', cellSpacing = '10px');
+}
+article { 
+    display: block;
+  }
+ 
+    .link_color {
+    color: black !important;
+    }
+    hr{ 
+        height: 1px;
+        color: #D1D1D1;
+        background-color: #D1D1D1;
+        border: none;
+      }
+      #myDIV {
+        width: 100%;
+        padding: 50px 0;
+        text-align: left;
+        margin-top: 20px;
+      }
+   
+

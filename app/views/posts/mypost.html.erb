@@ -1,0 +1,49 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+  <div class="navbar-header">
+  <a class="navbar-brand" href="#">BloggersPoint.com</a>
+</div>
+    <ul class="nav navbar-nav navbar-right">
+<li> <button class="btn btn-danger"><%= link_to('logout',destroy_user_session_path,:method => :delete)%></button></li>
+<li><button class="btn btn-sucess"><%= link_to('New Posts',new_post_path)%></button></li>
+</ul>
+</div>
+</nav>
+<h1 align="center" style="color:#221349;"  font-family: 'Lato', sans-serif;><big><big>Your Post</big></big></h1>
+<div class="table-responsive"> 
+<table id="tbg" cellpadding="10px" align="center" class="table table-hover">
+<thead bgcolor="#CAC9C9">
+<tr>
+<td><strong><big>Title</strong></big></td>
+<td><strong><big>Created at</strong></big></td>
+<td><strong><big>Name</strong></big></td>
+<td><strong><big>Destroy Article</strong></big></td>
+<td><strong><big>Edit Article</strong></big></td>
+<td><strong><big>Show Article</strong></big></td>
+<td><strong><big>Status</strong></big></td>
+
+</tr>
+
+</thead>
+<% @post.each do |f| %>
+
+<tr>
+<td><%= f.title %></td>
+<td><%= f.created_at %></td>
+<td><%= f.user.name %></td>
+<td><button class="btn btn-danger"><%= link_to 'Destroy', post_path(f),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } ,class: 'link_color' %></button></td>
+ <td> <button class="btn btn-warning"><%= link_to 'Edit', edit_post_path(f) %></button>
+</td>
+ <td><button class="btn btn-info"><%= link_to 'Show', post_path(f) %></td></button>
+<%if f.published==nil || f.published==false%>
+<td>Unpublished</td>
+<%else%>
+<td>Published</td>
+<%end%>
+</tr>
+
+<% end %>
+</table>
+</div>

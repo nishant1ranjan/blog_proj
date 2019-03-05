@@ -1,0 +1,39 @@
+<script>
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+<p>
+  
+<%=comment.body %>
+&nbsp;&nbsp;&nbsp;<strong> Commenter :<%=User.where(:id=>comment.user_id).first.try(:name) %></strong>
+
+
+
+
+
+  <% comment.comments.each do |f|%>
+    &nbsp;&nbsp;&nbsp;&nbsp;<%=f.body%>
+    &nbsp;&nbsp;&nbsp;&nbsp; :<%=time_ago_in_words(comment.created_at)%> &nbsp; ago
+ <br>
+<%end%>
+
+
+
+
+<br>
+<%= form_for "comment",url: mycomment_path(comment) do |f| %>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.text_field :body %>
+  
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= f.submit "Reply"%>
+  
+<% end %>
+
+
+</p>

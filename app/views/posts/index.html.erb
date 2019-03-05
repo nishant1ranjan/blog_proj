@@ -1,0 +1,181 @@
+
+<% if !user_signed_in? %>
+
+<nav class="navbar navbar-inverse">
+
+  <div class="container-fluid">
+  <div class="navbar-header">
+      <a class="navbar-brand" href="#">BloggersPoint.com</a>
+    </div>
+    
+<ul class="nav navbar-nav navbar-right">
+<li><a href="/users/sign_in" class="btn btn-info" style="float:right;margin-top:15px;margin-left:10px;"><font color="white">Login</font></a></li>
+<li><a href="/users/sign_up" class="btn btn-info" style="float:right;margin-top:15px;margin-left:10px;"><font color="white">SignUp</font></a></li>
+</ul>
+
+</div>
+
+</nav>
+<div class="alert alert-info" align="center">
+  <strong><big><big>Hey!!Not a member, Click SignUp at top right  Corner</big></big></strong>
+</div><div id="tbg" class="table-responsive"> 
+<table  cellpadding="10px" align="center" class="table table-hover">
+<thead bgcolor="#CAC9C9">
+<tr>
+<td><strong><big>Title</strong></big></td>
+<td><strong><big>Name</strong></big></td>
+<td><strong><big>Created By</strong></big></td>
+<td><strong><big>Created at</strong></big></td>
+<td><strong><big>Last Comment</strong></big></td>
+<td><strong><big>Last Commenter</strong></big></td>
+<td><strong><big>Status</strong></big></td>
+
+</tr>
+</thead>
+<% @post.each do |f| %>
+  <%if f.published==true%>
+
+<div id="tbg">
+    <tr>
+<td><%= f.title %></td>
+<td><%= f.user.name %></td>
+<td><%= f.user.email %></td>
+<td><%= time_ago_in_words(f.updated_at)%> ago</td>
+<td><%= f.comments.last.try(:body) %></td>
+<td><%=User.where(:id => f.comments.last.try(:user_id)).first&.name %></td>
+
+<td>Published</td>
+
+
+</div>
+</tr>
+<%end%>
+<% end %>
+
+</table>
+
+</div>
+
+<%end%>
+<% if user_signed_in? && current_user.utype=='admin'%>
+<nav class="navbar navbar-inverse">
+
+  <div class="container-fluid">
+  <div class="navbar-header">
+      <a class="navbar-brand" href="#">BloggersPoint.com</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+<li><button class="btn btn-danger" ><%= link_to('logout',destroy_user_session_path,:method => :delete )%></button></li>
+<li><button class="btn btn-info"><%= link_to('New Posts',new_post_path)%></button></li>
+<li><button class="btn btn-warning"><a href="/mypost/<%= current_user.id %>">My Posts</a></button></li>
+</ul>
+</div>
+</nav>
+<h1 align="center" style="color:#221349;"  font-family: 'Lato', sans-serif;>WELCOME ADMIN  <%= current_user.name %></h1>
+<big><strong>Signed in as..  <%= current_user.email %></strong></big>
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
+<div class="table-responsive"> 
+<table id="tbg" cellpadding="10px" align="center" class="table table-hover">
+<thead bgcolor="#CAC9C9">
+
+<tr>
+<td><strong><big>Title</big></strong></td>
+
+<td><strong><big>Name</strong></big></td>
+
+<td><strong><big>Created at</strong></big></td>
+
+<td><strong><big>Email</strong></big></td>
+<td><strong><big>Status</strong></big></td>
+
+<td><strong><big>Delete Articles</strong></big></td>
+
+<td><strong><big>Edit Articles</strong></big></td>
+<td><strong><big>Show Articles</strong></big></td>
+</tr>
+</thead>
+<% @post.each do |f| %>
+  <div id="tbg">
+<tr>
+<td><%= f.title %></td>
+<td><%= f.user.name %></td>
+<td><%= f.created_at %></td>
+<td><%= f.user.email %></td>
+<%if f.published==false ||f.published==nil  %>
+<td>Unpublished</td>
+
+<% else %>
+<td>Published</td>
+<%end%>
+<td><button type="button" class="btn btn-danger"><%= link_to 'Destroy', post_path(f),
+              method: :delete,
+              data: { confirm: 'Are you sure?'},class: 'link_color' %></button></td>
+ <td> <button type="button" class="btn btn-warning"><%= link_to 'Edit', edit_post_path(f) ,class: 'link_color'%></button>
+</td>
+ <td><button type="button" class="btn btn-info"><%= link_to 'Show', post_path(f),class: 'link_color' %></button></td>
+
+</tr>
+</div>
+<% end %>
+
+</table>
+
+</div>
+<%end%>
+ 
+
+<% if user_signed_in?  && current_user.utype==nil%>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">BloggersPoint.com</a>
+    </div>
+   
+    <ul class="nav navbar-nav navbar-right">
+
+    
+    <button type="button" class="btn btn-warning"><li><%= link_to('New Posts',new_post_path)%></li></button>
+    <li><button type="button" class="btn btn-info"><a href="/mypost/<%= current_user.id %>">My Posts</a></button></li>
+    <button type="button" class="btn btn-danger"> <li><%= link_to('logout',destroy_user_session_path,:method => :delete)%></li></button>
+
+</ul>
+</div>
+
+</nav>
+
+<big><strong>Signed in as... <%= current_user.email %><big><strong>
+<h1 align="center" style="color:#221349;"  font-family: 'Lato', sans-serif;>WELCOME  <%= current_user.name %></h1>
+
+<div class="table-responsive"> 
+<table id="tbg" cellpadding="10px" align="center" class="table table-hover">
+<thead bgcolor="#CAC9C9">
+<tr>
+<td><strong><big>Title</strong></big></td>
+<td><strong><big>Name</strong></big></td>
+<td><strong><big>Email id</strong></big></td>
+<td><strong><big>Created at</strong></big></td>
+<td><strong><big>Show</strong></big></td>
+</tr>
+</thead>
+<% @post.each do |f| %>
+  <%if f.published==true%>
+
+<tr>
+<td><%= f.title %></td>
+<td><%= f.user.name %></td>
+<td><%= f.user.email %></td>
+<td><%= f.created_at %></td>
+<td><button type="button" class="btn btn-info"><%= link_to 'Show', post_path(f),class: 'link_color' %></button></td>
+
+</tr>
+<% end %>
+<%end%>
+</table>
+</div>
+
+<%end%>

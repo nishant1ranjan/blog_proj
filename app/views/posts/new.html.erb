@@ -1,0 +1,21 @@
+
+<article id="tbg"align="center">
+<%= form_for @post  do  |form|%>
+  <p>
+<%= form.label :title %><br>
+<%= form.text_field :title ,:style =>"width:50%;height:50px;"%>
+</p>
+ 
+<p>
+<%= form.label :body %><br>
+<%= form.text_area :body ,:style =>"width:90%;height:500px;"%>
+</p>
+<p>
+<%= form.label :all_tags %><br>
+<%= form.text_area :all_tags ,:style =>"width:50%;height:50px;" %> (seperated by comma(,) )
+</p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+</article>

@@ -1,0 +1,31 @@
+
+<h1  align="center" >
+ <big> <%= @post.title %></big>
+  
+  </h1>
+  <hr>
+  
+  <article id="tbg" align="left">    
+
+  
+<%=simple_format @post.body %>
+</p>
+
+
+</article>
+
+<div align="center">
+<strong>Tags:</strong>
+<% @post.all_tags.split(",").each do |post|%>
+  <button class="btn btn-default"><%= post %> </button> 
+ <%end%>
+ </div>
+<div id="comment">
+
+<strong>Add a comment:</strong>
+<div id="com_content">
+<%= render @post.comments%>
+</div>
+</div>
+<%= render 'comments/form' %>
+

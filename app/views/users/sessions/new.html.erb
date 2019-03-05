@@ -1,0 +1,46 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+  <div class="navbar-header">
+  <a class="navbar-brand" href="#">BloggersPoint.com</a>
+</div>
+    <ul class="nav navbar-nav navbar-right">
+    <li><button class="btn btn-sucess"><%= render "users/shared/links" %></button></li>
+    </ul>
+    </div>
+    </nav>
+    <h1 align="center" style="color:#221349;"  font-family: 'Lato', sans-serif;><big><big>Log In</big></big></h1>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <table class="test" align="center">
+  <tr>
+  <div class="field">
+    <td><%= f.label :email %></td>
+  <td>  <%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+  </div>
+</tr>
+<tr>
+  <div class="field">
+    <td><%= f.label :password %></td>
+    <td><%= f.password_field :password, autocomplete: "current-password" %></td>
+  </div>
+</tr>
+<tr>
+  <% if devise_mapping.rememberable? %>
+    <div class="field">
+      <td><%= f.check_box :remember_me %></td>
+     <td> <%= f.label :remember_me %></td>
+    </div>
+  <% end %>
+  </tr>
+<tr>
+  <td><div class="actions">
+    <%= f.submit "Log in" %>
+  </div>
+  </td>
+  </tr>
+  <tr><td><strong><big>Not A Member</big></strong></td>
+  <td><a href="/users/sign_up" class="btn btn-info" style="float:right;margin-top:15px;margin-left:10px;"><font color="white">SignUp</font></a>
+  </td></tr>
+  </table>
+  <% end %>
+
